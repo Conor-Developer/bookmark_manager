@@ -18,6 +18,20 @@ graph TD
     B[Bookmarks] -->C[view_all]
 ```
 
+|  Objects        |  Messages      |
+| ----------      | -------------  | 
+| User            |                |
+| Bookmarks       |   create       |
+
+```mermaid
+graph TD
+    A[User] -->B["/bookmarks"]
+    B["/bookmarks"] --> C["/new"]
+    C["/new"] --> D[Submit form]
+    D[Submit form] -->E[Bookmark#create]
+    E[Bookmark#create] --> F["INSERT (url) to DB table: bookmark_manager: bookmarks"]
+```
+
 Database Setup
 -----
 
