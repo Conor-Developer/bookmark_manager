@@ -4,6 +4,7 @@ ruby '3.1.1'
 
 gem 'sinatra'
 gem 'webrick'
+gem 'pg'
 
 group :test do
   gem 'capybara'
