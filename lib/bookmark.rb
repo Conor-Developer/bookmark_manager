@@ -1,6 +1,15 @@
 require 'pg'
 
 class Bookmark
+
+  attr_reader :id, :url, :title
+
+  def initialize(id:, url:, title:)
+    @id = id
+    @url = url
+    @title = title
+  end
+
   def self.all
     if ENV['RACK_ENV'] == 'test'
       connection = PG.connect(dbname: 'bookmark_manager_test')
@@ -9,16 +18,19 @@ class Bookmark
     end
 
     result = connection.exec('SELECT * FROM bookmarks')
-    result.map { |bookmark| bookmark['url'] }
+
+    result.map { |bookmark| Bookmark.new(id: bookmark['id'], url: bookmark['url'], title: bookmark['title']) }
+
   end
 
-  def self.create(url:)
+  def self.create(url:, title:)
     if ENV['RACK_ENV'] == 'test'
       connection = PG.connect(dbname: 'bookmark_manager_test')
     else
       connection = PG.connect(dbname: 'bookmark_manager')
     end
 
-    connection.exec("INSERT INTO bookmarks (url) VALUES ('#{url}')")
+    result = connection.exec("INSERT INTO bookmarks (url, title) VALUES ('#{url}', '#{title}') RETURNING id, url, title")
+    Bookmark.new(id: result[0]['id'], title: result[0]['title'], url: result[0]['url'])
   end
 end
