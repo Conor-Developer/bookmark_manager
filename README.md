@@ -18,6 +18,10 @@ graph TD
     B[Bookmarks] -->C[view_all]
 ```
 
+`As a user
+So I can store bookmarks
+I would like to be able to input new bookmarks`
+
 |  Objects        |  Messages      |
 | ----------      | -------------  | 
 | User            |                |
@@ -30,6 +34,23 @@ graph TD
     C["/new"] --> D[Submit form]
     D[Submit form] -->E[Bookmark#create]
     E[Bookmark#create] --> F["INSERT (url) to DB table: bookmark_manager: bookmarks"]
+```
+
+`As a user
+So I can remove my bookwork from Bookmark Manager
+I want to delete a bookmark`
+
+|  Objects        |  Messages      |
+| ----------      | -------------  | 
+| User |                        |
+| Bookmarks |      delete    |
+
+```mermaid
+graph TD
+    A[User] -->B["/bookmarks"]
+    B["/bookmarks"] --> C[Delete button]
+    C[Delete button] --> D[Bookmark#delete]
+    D[Bookmark#delete] --> F["DELETE (url) from DB table: bookmark_manager: bookmarks"]
 ```
 
 Database Setup
