@@ -30,4 +30,14 @@ describe Bookmark do
       expect(bookmark.url).to eq 'http://www.bbc.co.uk'
     end
   end
+
+  context '#delete' do
+    it 'deletes a bookmark' do
+      bookmark = Bookmark.create(url: 'http://www.bbc.co.uk', title: 'BBC')
+      Bookmark.delete(id: bookmark.id)
+      persisted_data = persisted_data(id: bookmark.id)
+
+      expect(persisted_data).to eq(nil)
+    end
+  end
 end
