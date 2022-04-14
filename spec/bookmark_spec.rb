@@ -40,4 +40,16 @@ describe Bookmark do
       expect(persisted_data).to eq(nil)
     end
   end
+
+  context '#update' do
+    it 'updates an existing bookmark' do
+      bookmark = Bookmark.create(url: 'http://bbc.co.uk', title: 'BBC')
+      updated_bookmark = Bookmark.update(id: bookmark.id, url: 'http://www.makersacademy.com', title: 'Makers Academy')
+
+      expect(updated_bookmark).to be_a Bookmark
+      expect(updated_bookmark.id).to eq bookmark.id
+      expect(updated_bookmark.url).to eq 'http://www.makersacademy.com'
+      expect(updated_bookmark.title).to eq 'Makers Academy'
+    end
+  end
 end
