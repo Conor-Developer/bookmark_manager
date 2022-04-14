@@ -50,7 +50,27 @@ graph TD
     A[User] -->B["/bookmarks"]
     B["/bookmarks"] --> C[Delete button]
     C[Delete button] --> D[Bookmark#delete]
-    D[Bookmark#delete] --> F["DELETE (url) from DB table: bookmark_manager: bookmarks"]
+    D[Bookmark#delete] --> E["DELETE (id) from DB table: bookmark_manager: bookmarks"]
+```
+
+`As a user
+So I can update my bookmark from Bookmark Manager
+I want to update a bookmark`
+
+
+|  Objects        |  Messages      |
+| ----------      | -------------  | 
+| User            |                |
+| Bookmarks       | find, update   |
+
+
+```mermaid
+graph TD
+    A[User] -->B["/bookmarks"]
+    B["/bookmarks"] --> C[Update button]
+    C[Update button] --> D[Bookmark#update]
+    D[Bookmark#update] --> E[Bookmark#find]
+    E[Bookmark#find] --> F["UPDATE (title, url) from DB table: bookmark_manager: bookmarks"]
 ```
 
 Database Setup
