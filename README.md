@@ -73,6 +73,25 @@ graph TD
     E[Bookmark#find] --> F["UPDATE (title, url) from DB table: bookmark_manager: bookmarks"]
 ```
 
+`As a user
+So I can see comments on my bookmarks from Bookmark Manager
+I want to comment a bookmark`
+
+|  Objects        |  Messages      |
+| ----------      | -------------  | 
+| User            |                |
+| Bookmarks       | find, update   |
+| Comment     | where, create  |
+
+```mermaid
+graph TD
+    A[User] -->B["/bookmarks"]
+    B["/bookmarks"] --> C[Add comment button]
+    C[Add comment button] --> D[Comment#create]
+    D[Comment#create] --> E["INSERT (text, bookmark_id) to DB table: bookmark_manager: comments"]
+    --> F[Bookmark#comments] --> G[Comment#where]
+```
+
 Database Setup
 -----
 
