@@ -59,5 +59,17 @@ class BookmarkManager < Sinatra::Base
     redirect '/bookmarks'
   end
 
+  get '/bookmarks/:id/tags/new' do
+    @bookmark_id = params[:id]
+    erb :'tags/new'
+  end
+
+  post '/bookmarks/:id/tags' do
+   # Tag.create(text: params[:tag], bookmark_id: params[:id])
+    DatabaseConnection.setup('bookmark_manager_test')
+    DatabaseConnection.query("INSERT INTO tags (content) VALUES ($1);", [params[:tag]])
+    redirect '/bookmarks'
+  end
+
   run! if app_file == $0
 end
