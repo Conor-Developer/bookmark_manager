@@ -49,4 +49,7 @@ class Bookmark
     url =~ /\A#{URI::regexp(['http', 'https'])}\z/
   end
 
+  def comments(comment_class = Comment)
+    comment_class.where(bookmark_id: id)
+  end
 end
