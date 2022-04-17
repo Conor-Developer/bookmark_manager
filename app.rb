@@ -5,6 +5,7 @@ require 'uri'
 require_relative './lib/bookmark'
 require_relative './database_connection_setup'
 require_relative './lib/comment'
+require_relative './lib/user'
 
 
 class BookmarkManager < Sinatra::Base
@@ -21,6 +22,7 @@ class BookmarkManager < Sinatra::Base
   end
 
   get '/bookmarks' do
+    @user = User.find(id: session[:user_id])
     @bookmarks = Bookmark.all
     erb :'bookmarks/index'
   end
@@ -68,6 +70,16 @@ class BookmarkManager < Sinatra::Base
    # Tag.create(text: params[:tag], bookmark_id: params[:id])
     DatabaseConnection.setup('bookmark_manager_test')
     DatabaseConnection.query("INSERT INTO tags (content) VALUES ($1);", [params[:tag]])
+    redirect '/bookmarks'
+  end
+
+  get '/users/new' do
+    erb :'users/new'
+  end
+
+  post '/users' do
+    user = User.create(email: params[:email], password: params[:password])
+    session[:user_id] = user.id
     redirect '/bookmarks'
   end
 

@@ -1,5 +1,9 @@
 <%= flash[:notice] %>
 
+<% if @user %>
+  <h1>Welcome, <%= @user.email %></h1>
+<% end %>
+
 <ul>
     <% @bookmarks.each do |bookmark|%>
     <li class="bookmark" id="bookmark-<%= bookmark.id %>">
@@ -22,11 +26,6 @@
       <form action="bookmarks/<%= bookmark.id %>/tags/new" method="get">
           <input type="submit" value="Add Tag" />
       </form>
-      <ul>
-        <% bookmark.tags.each do |tag| %>
-          <li><%= tag.text %></li>
-        <% end %>
-      </ul>
     </li>
     <% end %>
 </ul>
